@@ -1,11 +1,9 @@
 package com.example.login
 
 import android.content.Context
-import android.graphics.ImageDecoder
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -37,17 +35,17 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        Title()
-        NameField()
-        PasswordField()
-        RegisterButton(context = LocalContext.current)
+        Title(text = stringResource(id = R.string.signIn), padding = 90)
+        NameField(stringResource(id = R.string.userName))
+        PasswordField(pass = stringResource(id = R.string.password))
+        RegisterButton(context = LocalContext.current, text = stringResource(id = R.string.submit))
 
 
     }
 }
 
 @Composable
-fun RegisterButton(context: Context) {
+fun RegisterButton(context: Context,text: String) {
     Button(
         onClick = {
             Toast.makeText(
@@ -63,14 +61,14 @@ fun RegisterButton(context: Context) {
             contentColor = Color.White,
         )
     ) {
-        Text(text = stringResource(id = R.string.submit))
+        Text(text = text)
 
     }
 
 }
 
 @Composable
-fun PasswordField() {
+fun PasswordField(pass:String) {
     var password by remember {
         mutableStateOf(TextFieldValue())
     }
@@ -88,7 +86,7 @@ fun PasswordField() {
         },
         label = {
             Text(
-                stringResource(id = R.string.password),
+                pass,
                 fontSize = 16.sp,
                 color = Color.Black
             )
@@ -106,7 +104,8 @@ fun PasswordField() {
             } else {
                 IconButton(onClick = { visible = !visible }) {
                     Icon(
-                        imageVector = Icons.Filled.VisibilityOff, contentDescription = stringResource(
+                        imageVector = Icons.Filled.VisibilityOff,
+                        contentDescription = stringResource(
                             id = R.string.hidePassword
                         )
                     )
@@ -131,7 +130,7 @@ fun PasswordField() {
 }
 
 @Composable
-fun NameField() {
+fun NameField(label: String) {
     var name by remember {
         mutableStateOf(TextFieldValue())
     }
@@ -143,7 +142,7 @@ fun NameField() {
         },
         label = {
             Text(
-                stringResource(id = R.string.userName),
+                text = label,
                 fontSize = 16.sp,
                 color = Color.Black
             )
@@ -160,10 +159,10 @@ fun NameField() {
 }
 
 @Composable
-fun Title() {
+fun Title(text: String,padding:Int) {
     Text(
-        stringResource(id = R.string.signIn),
+        text = text,
         fontSize = 30.sp,
-        modifier = Modifier.padding(vertical = 90.dp)
+        modifier = Modifier.padding(vertical = padding.dp)
     )
 }
