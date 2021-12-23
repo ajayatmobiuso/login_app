@@ -38,21 +38,25 @@ fun LoginScreen() {
         Title(text = stringResource(id = R.string.signIn), padding = 90)
         NameField(stringResource(id = R.string.userName))
         PasswordField(pass = stringResource(id = R.string.password))
-        RegisterButton(context = LocalContext.current, text = stringResource(id = R.string.submit))
+        RegisterButton(context = LocalContext.current, text = stringResource(id = R.string.submit)) {
+            val todoItem = User(
+                userId = 1,
+                userFullName = "Dummy Item",
+                userName = "item",
+                password = "1234"
+            )
+            userDatabaseDAO.insert(todoItem)
+        }
 
 
     }
 }
 
 @Composable
-fun RegisterButton(context: Context,text: String) {
+fun RegisterButton(context: Context,text: String, callBack:()-> Unit) {
     Button(
         onClick = {
-            Toast.makeText(
-                context,
-                "Showing toast....",
-                Toast.LENGTH_SHORT
-            ).show()
+            callBack()
         },
         Modifier
             .fillMaxWidth()

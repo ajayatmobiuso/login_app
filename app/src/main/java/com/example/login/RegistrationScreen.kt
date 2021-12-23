@@ -1,5 +1,6 @@
 package com.example.login
 
+import android.content.Context
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.room.Room
+
+lateinit var userDatabaseDAO: UserDatabaseDAO
 
 @Composable
-fun RegistrationScreen() {
+fun RegistrationScreen(context:Context) {
+    var userDb : UserDatabase = Room.inMemoryDatabaseBuilder(context, UserDatabase::class.java)
+        .allowMainThreadQueries()
+        .build()
     Scaffold {
         Column(
             Modifier
@@ -30,7 +37,21 @@ fun RegistrationScreen() {
             NameField(label = stringResource(id = R.string.userName))
             PasswordField(pass = stringResource(id = R.string.password))
             PasswordField(pass = stringResource(id = R.string.confirmPassword))
-            RegisterButton(context = LocalContext.current, stringResource(id = R.string.register))
+            RegisterButton(context = LocalContext.current, stringResource(id = R.string.register)) {
+                userDatabaseDAO = userDb.userDao()
+                val todoItem = User(
+                    userId = 12,
+                    userFullName = "Dummy Item",
+                    userName = "item",
+                    password = "1234"
+                )
+                userDatabaseDAO.insert(todoItem)
+
+                val by = userDatabaseDAO.getAll().value?.get(0)
+                println("user registered successfully")
+                println(todoItem)
+                println(by)
+            }
         }
     }
 }

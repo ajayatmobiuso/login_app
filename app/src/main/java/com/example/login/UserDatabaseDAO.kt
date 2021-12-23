@@ -9,5 +9,8 @@ import androidx.room.Update
 @Dao
 interface UserDatabaseDAO {
     @Insert
-    suspend fun insert(user:User)
+    fun insert(user:User)
+
+    @Query("SELECT * FROM users")
+    fun getAll(): LiveData<List<User>>
 }
