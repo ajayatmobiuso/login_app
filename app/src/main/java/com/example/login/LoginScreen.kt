@@ -23,11 +23,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @Composable
-@Preview()
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -38,7 +38,7 @@ fun LoginScreen() {
         Title(text = stringResource(id = R.string.signIn), padding = 90)
         NameField(stringResource(id = R.string.userName))
         PasswordField(pass = stringResource(id = R.string.password))
-        RegisterButton(context = LocalContext.current, text = stringResource(id = R.string.submit)) {
+        RegisterButton( text = stringResource(id = R.string.submit)) {
             val todoItem = User(
                 userId = 1,
                 userFullName = "Dummy Item",
@@ -53,7 +53,7 @@ fun LoginScreen() {
 }
 
 @Composable
-fun RegisterButton(context: Context,text: String, callBack:()-> Unit) {
+fun RegisterButton(text: String, callBack:()-> Unit) {
     Button(
         onClick = {
             callBack()
