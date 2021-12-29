@@ -3,6 +3,9 @@ package com.example.login
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.login.database.User
+import com.example.login.database.UserDatabase
+import com.example.login.database.UserDatabaseDAO
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -30,7 +33,7 @@ class UserTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetTodo() = runBlocking {
-        val todoItem = User(userId = 1, userFullName = "Dummy Item", userName = "item", password = "1234")
+        val todoItem = User(userId = 1, firstName = "Dummy Item", lastName = "item", contactNumber = "1234")
         userDatabaseDAO.insert(todoItem)
 //        val oneItem = userDatabaseDAO.getById(1)
 //        assertEquals(oneItem?.itemId, 1)

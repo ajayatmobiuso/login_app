@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">login</string>
     <string name="signIn">Sign In</string>
-    <string name="userName">User Name</string>
-    <string name="password">Password</string>
+    <string name="lastName">Last Name</string>
+    <string name="contactNumber">Contact Number</string>
     <string name="submit">SUBMIT</string>
     <string name="hidePassword">Hide Password</string>
     <string name="registration">Registration</string>
-    <string name="fullName">Full Name</string>
+    <string name="firstName">First Name</string>
     <string name="register">Register</string>
-    <string name="confirmPassword">Confirm Password</string>
+    <string name="emailAddress">Email Address</string>
 </resources>

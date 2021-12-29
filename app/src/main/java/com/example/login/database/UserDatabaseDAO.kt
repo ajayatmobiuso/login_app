@@ -1,15 +1,15 @@
-package com.example.login
+package com.example.login.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 
 @Dao
 interface UserDatabaseDAO {
-    @Insert
-    fun insert(user:User)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(user: User)
 
     @Query("SELECT * FROM users")
     fun getAll(): LiveData<List<User>>

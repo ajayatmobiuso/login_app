@@ -1,29 +1,25 @@
 package com.example.login
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.login.database.User
 
 
 @Composable
@@ -36,14 +32,15 @@ fun LoginScreen(navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         Title(text = stringResource(id = R.string.signIn), padding = 90)
-        NameField(stringResource(id = R.string.userName))
-        PasswordField(pass = stringResource(id = R.string.password))
-        RegisterButton( text = stringResource(id = R.string.submit)) {
+//        NameField(stringResource(id = R.string.userName))
+        PasswordField(pass = stringResource(id = R.string.contactNumber))
+        RegisterButton(text = stringResource(id = R.string.submit)) {
             val todoItem = User(
                 userId = 1,
-                userFullName = "Dummy Item",
-                userName = "item",
-                password = "1234"
+                firstName = "Dummy Item",
+                lastName = "item",
+                contactNumber = "1234",
+                emailAddress = ""
             )
             userDatabaseDAO.insert(todoItem)
         }
@@ -53,26 +50,39 @@ fun LoginScreen(navController: NavController) {
 }
 
 @Composable
-fun RegisterButton(text: String, callBack:()-> Unit) {
-    Button(
-        onClick = {
-            callBack()
-        },
-        Modifier
+fun RegisterButton(text: String, callBack: () -> Unit) {
+    Column(
+        modifier = Modifier
             .fillMaxWidth()
-            .size(55.dp), shape = RoundedCornerShape(10.dp), colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Black,
-            contentColor = Color.White,
-        )
+            .fillMaxHeight()
+            .paddingFromBaseline(bottom = 30.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text)
+        Button(
+            onClick = {
+                callBack()
+            },
 
+            Modifier
+                .width(300.dp)
+                .size(50.dp),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Black,
+                contentColor = Color.White,
+            )
+        ) {
+            Text(text = text)
+
+        }
     }
+
 
 }
 
 @Composable
-fun PasswordField(pass:String) {
+fun PasswordField(pass: String) {
     var password by remember {
         mutableStateOf(TextFieldValue())
     }
@@ -134,15 +144,18 @@ fun PasswordField(pass:String) {
 }
 
 @Composable
-fun NameField(label: String) {
-    var name by remember {
-        mutableStateOf(TextFieldValue())
-    }
+fun NameField(label: String, name: TextFieldValue) {
+//    var name by remember {
+//        mutableStateOf(TextFieldValue())
+//    }
+    var name = name
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
         value = name, onValueChange = {
+            println(it.text)
             name = it
+
         },
         label = {
             Text(
@@ -163,7 +176,7 @@ fun NameField(label: String) {
 }
 
 @Composable
-fun Title(text: String,padding:Int) {
+fun Title(text: String, padding: Int) {
     Text(
         text = text,
         fontSize = 30.sp,

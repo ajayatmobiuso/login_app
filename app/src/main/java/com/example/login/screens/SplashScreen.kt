@@ -1,6 +1,5 @@
 package com.example.login
 
-import android.text.Layout
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -16,6 +15,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import com.example.login.utils.Screen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -36,8 +36,8 @@ fun SplashScreen(navController: NavController) {
                 }))
 //         Customize the delay time
         delay(2000L)
-        navController.navigate(Screen.LoginScreen.route){
-            popUpTo(Screen.SplashScreen.route) {
+        navController.navigate(Screen.UserScreen.route){
+            popUpTo(Screen.WelcomeScreen.route) {
                 inclusive = true
             }
         }

@@ -1,11 +1,12 @@
-package com.example.login
+package com.example.login.utils
 
 sealed class Screen(
     val route: String
 ) {
 
-    object  SplashScreen : Screen("splashScreen")
+    object  WelcomeScreen : Screen("splashScreen")
     object  LoginScreen : Screen("loginScreen")
     object  RegisterScreen : Screen("registerScreen")
+    object  UserScreen : Screen("userScreen")
 
 }

@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.login.database
 
 import android.content.Context
 import androidx.room.Database
@@ -8,17 +8,23 @@ import androidx.room.RoomDatabase
 @Database(entities = [User::class], version = 1)
 abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDatabaseDAO
+
     companion object {
-        var dbInstance: UserDatabase? = null
-        private var INSTANCE: UserDatabaseDAO? = null
+        @Volatile
+        private var INSTANCE: UserDatabase? = null
+
         fun getInstance(context: Context): UserDatabase {
-            val tempInstance = dbInstance
-            if(tempInstance != null) {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
-                val instance = Room.databaseBuilder(context.applicationContext, UserDatabase::class.java,"users").build()
-                dbInstance = instance
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    UserDatabase::class.java,
+                    "users"
+                ).allowMainThreadQueries().build()
+                INSTANCE = instance
                 return instance
             }
 
