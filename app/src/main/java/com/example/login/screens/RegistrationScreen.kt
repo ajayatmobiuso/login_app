@@ -2,7 +2,6 @@ package com.example.login
 
 import android.app.Application
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,23 +12,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.login.database.User
 import com.example.login.database.UserDatabaseDAO
+import com.example.login.database.UserViewModel
 import com.example.login.utils.Screen
 
 lateinit var userDatabaseDAO: UserDatabaseDAO
@@ -50,17 +45,6 @@ fun RegistrationScreen(context: Context, navController: NavController) {
     var emailAddress by remember {
         mutableStateOf(TextFieldValue())
     }
-//    var visible by remember {
-//        mutableStateOf(false)
-//    }
-//    var confirmPasswordVisibility by remember {
-//        mutableStateOf(false)
-//    }
-
-
-//    val userDb: UserDatabase = Room.inMemoryDatabaseBuilder(context, UserDatabase::class.java)
-//        .allowMainThreadQueries()
-//        .build()
     Scaffold {
         Column(
             Modifier
@@ -136,32 +120,7 @@ fun RegistrationScreen(context: Context, navController: NavController) {
                         color = Color.Black
                     )
                 },
-//                trailingIcon = {
-//                    if (visible) {
-//                        IconButton(onClick = { visible = !visible }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.Visibility,
-//                                contentDescription = stringResource(
-//                                    id = R.string.hidePassword
-//                                )
-//                            )
-//                        }
-//                    } else {
-//                        IconButton(onClick = { visible = !visible }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.VisibilityOff,
-//                                contentDescription = stringResource(
-//                                    id = R.string.hidePassword
-//                                )
-//                            )
-//                        }
-//                    }
-//                },
-//                visualTransformation = if (!visible) {
-//                    PasswordVisualTransformation()
-//                } else {
-//                    VisualTransformation.None
-//                },
+
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedLabelColor = Color.Black,
@@ -187,36 +146,6 @@ fun RegistrationScreen(context: Context, navController: NavController) {
                         color = Color.Black
                     )
                 },
-//                trailingIcon = {
-//                    if (confirmPasswordVisibility) {
-//                        IconButton(onClick = {
-//                            confirmPasswordVisibility = !confirmPasswordVisibility
-//                        }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.Visibility,
-//                                contentDescription = stringResource(
-//                                    id = R.string.hidePassword
-//                                )
-//                            )
-//                        }
-//                    } else {
-//                        IconButton(onClick = {
-//                            confirmPasswordVisibility = !confirmPasswordVisibility
-//                        }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.VisibilityOff,
-//                                contentDescription = stringResource(
-//                                    id = R.string.hidePassword
-//                                )
-//                            )
-//                        }
-//                    }
-//                },
-//                visualTransformation = if (!confirmPasswordVisibility) {
-//                    PasswordVisualTransformation()
-//                } else {
-//                    VisualTransformation.None
-//                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedLabelColor = Color.Black,
@@ -229,7 +158,6 @@ fun RegistrationScreen(context: Context, navController: NavController) {
             RegisterButton(stringResource(id = R.string.register)) {
 
                 userViewModel.insertCustomer(
-
                     User(
                         firstName = firstName.text,
                         lastName = lastName.text,
@@ -242,10 +170,7 @@ fun RegistrationScreen(context: Context, navController: NavController) {
                     popUpTo(Screen.RegisterScreen.route)
                 }
             }
-            Text("Login", modifier = Modifier.clickable {
-                println("Clicked")
-                navController.navigate("loginScreen")
-            })
+
         }
     }
 

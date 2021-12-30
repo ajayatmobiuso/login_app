@@ -1,6 +1,6 @@
-package com.example.login
+package com.example.login.database
 
-import UserRepository
+import com.example.login.repository.UserRepository
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -12,9 +12,7 @@ import kotlinx.coroutines.launch
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val userRepository: UserRepository = UserRepository(application = application)
-    private val usersList: MutableLiveData<ArrayList<User>> by lazy {
-        MutableLiveData<ArrayList<User>>()
-    }
+   
 
     fun fetchUsers(): LiveData<List<User>> {
         return userRepository.readAllUsers
