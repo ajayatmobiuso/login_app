@@ -1,8 +1,9 @@
 package com.example.login
 
+import com.example.login.data.model.User
+import com.example.login.ui.theme.UserViewModel
 import android.app.Application
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,15 +23,15 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.login.database.User
-import com.example.login.database.UserDatabaseDAO
-import com.example.login.database.UserViewModel
-import com.example.login.utils.Screen
+import com.example.login.data.local.UserDAO
+import com.example.login.ui.theme.screens.RegisterButton
+import com.example.login.ui.theme.screens.Screen
+import com.example.login.ui.theme.screens.Title
 
-lateinit var userDatabaseDAO: UserDatabaseDAO
+
 
 @Composable
-fun RegistrationScreen(context: Context, navController: NavController) {
+fun Registration(context: Context, navController: NavController) {
 
     val userViewModel: UserViewModel = UserViewModel(application = Application())
     var firstName by remember {
@@ -166,8 +167,8 @@ fun RegistrationScreen(context: Context, navController: NavController) {
                     )
                 )
 
-                navController.navigate(Screen.UserScreen.route) {
-                    popUpTo(Screen.RegisterScreen.route)
+                navController.navigate(Screen.Home.route) {
+                    popUpTo(Screen.Registration.route)
                 }
             }
 

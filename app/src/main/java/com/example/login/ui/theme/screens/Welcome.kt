@@ -1,4 +1,3 @@
-package com.example.login
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.tween
@@ -15,11 +14,12 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
-import com.example.login.utils.Screen
+import com.example.login.R
+import com.example.login.ui.theme.screens.Screen
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun Welcome(navController: NavController) {
     val scale = remember {
         androidx.compose.animation.core.Animatable(0f)
     }
@@ -28,16 +28,15 @@ fun SplashScreen(navController: NavController) {
     LaunchedEffect(key1 = true) {
         scale.animateTo(
             targetValue = 0.9f,
-            // tween Animation
             animationSpec = tween(
                 durationMillis = 900,
                 easing = {
                     OvershootInterpolator(6f).getInterpolation(it)
-                }))
-//         Customize the delay time
+                })
+        )
         delay(2000L)
-        navController.navigate(Screen.UserScreen.route){
-            popUpTo(Screen.WelcomeScreen.route) {
+        navController.navigate(Screen.Home.route) {
+            popUpTo(Screen.Welcome.route) {
                 inclusive = true
             }
         }
@@ -46,11 +45,14 @@ fun SplashScreen(navController: NavController) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
-        ) {
-        Image(painter = painterResource(id = R.drawable.logo),
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo",
             contentScale = ContentScale.Crop,
-            modifier =Modifier.scale(scale = scale.value).fillMaxWidth(),
+            modifier = Modifier
+                .scale(scale = scale.value)
+                .fillMaxWidth(),
         )
     }
 }

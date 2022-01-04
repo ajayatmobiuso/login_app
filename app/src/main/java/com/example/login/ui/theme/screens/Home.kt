@@ -1,4 +1,4 @@
-package com.example.login.screens
+package com.example.login.ui.theme.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,12 +17,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.login.R
-import com.example.login.RegisterButton
-import com.example.login.database.UserViewModel
-import com.example.login.utils.Screen
+import com.example.login.ui.theme.UserViewModel
 
 @Composable
-fun UserList(userViewModel: UserViewModel, navController: NavController) {
+fun Home(userViewModel: UserViewModel, navController: NavController) {
     val userList = userViewModel.fetchUsers().observeAsState(arrayListOf())
     Box() {
         LazyColumn {
@@ -95,7 +93,7 @@ fun UserList(userViewModel: UserViewModel, navController: NavController) {
             Modifier.height(20.dp)
         )
         RegisterButton(text = "Add Users") {
-            navController.navigate(Screen.RegisterScreen.route)
+            navController.navigate(Screen.Registration.route)
         }
     }
 

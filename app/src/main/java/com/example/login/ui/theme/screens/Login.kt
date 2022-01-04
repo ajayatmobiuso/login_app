@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.login.ui.theme.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,11 +19,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.login.database.User
+import com.example.login.R
 
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun Login(navController: NavController) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -35,14 +35,7 @@ fun LoginScreen(navController: NavController) {
 //        NameField(stringResource(id = R.string.userName))
         PasswordField(pass = stringResource(id = R.string.contactNumber))
         RegisterButton(text = stringResource(id = R.string.submit)) {
-            val todoItem = User(
-                userId = 1,
-                firstName = "Dummy Item",
-                lastName = "item",
-                contactNumber = "1234",
-                emailAddress = ""
-            )
-            userDatabaseDAO.insert(todoItem)
+
         }
 
 

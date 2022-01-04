@@ -1,13 +1,14 @@
-package com.example.login.database
+package com.example.login.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.login.data.model.User
 
 @Database(entities = [User::class], version = 1)
 abstract class UserDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDatabaseDAO
+    abstract fun userDao(): UserDAO
 
     companion object {
         @Volatile
@@ -23,26 +24,11 @@ abstract class UserDatabase : RoomDatabase() {
                     context.applicationContext,
                     UserDatabase::class.java,
                     "users"
-                ).allowMainThreadQueries().build()
+                ).build()
                 INSTANCE = instance
                 return instance
             }
 
         }
-//        fun getInstance(context: Context): UserDatabaseDAO? {
-//            synchronized(this) {
-//                var instance = INSTANCE
-//                if (instance == null) {
-//                    instance = Room.databaseBuilder(
-//                        context.applicationContext,
-//                        UserDatabase::class.java,
-//                        "users"
-//                    ).fallbackToDestructiveMigration()
-//                        .build()
-//                    INSTANCE = instance
-//                }
-//                return instance
-//            }
-//        }
     }
 }

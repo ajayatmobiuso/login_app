@@ -3,9 +3,8 @@ package com.example.login
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.login.database.User
-import com.example.login.database.UserDatabase
-import com.example.login.database.UserDatabaseDAO
+import com.example.login.data.local.UserDatabase
+import com.example.login.data.local.UserDAO
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -14,7 +13,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class UserTest {
 
-    private lateinit var userDatabaseDAO: UserDatabaseDAO
+    private lateinit var userDAO: UserDAO
     private lateinit var db: UserDatabase
 
     @Before
@@ -25,7 +24,7 @@ class UserTest {
             .allowMainThreadQueries()
             .build()
 
-        userDatabaseDAO = db.userDao()
+        userDAO = db.userDao()
     }
 
 
@@ -33,8 +32,8 @@ class UserTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetTodo() = runBlocking {
-        val todoItem = User(userId = 1, firstName = "Dummy Item", lastName = "item", contactNumber = "1234")
-        userDatabaseDAO.insert(todoItem)
+//        val todoItem = com.example.login.data.model.User(userId = 1, firstName = "Dummy Item", lastName = "item", contactNumber = "1234")
+//        userDatabaseDAO.insert(todoItem)
 //        val oneItem = userDatabaseDAO.getById(1)
 //        assertEquals(oneItem?.itemId, 1)
     }
